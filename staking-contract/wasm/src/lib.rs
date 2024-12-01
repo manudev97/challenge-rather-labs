@@ -5,9 +5,10 @@
 ////////////////////////////////////////////////////
 
 // Init:                                 1
-// Endpoints:                            3
+// Upgrade:                              1
+// Endpoints:                            4
 // Async Callback (empty):               1
-// Total number of exported functions:   5
+// Total number of exported functions:   7
 
 #![no_std]
 
@@ -18,7 +19,9 @@ multiversx_sc_wasm_adapter::endpoints! {
     staking_contract
     (
         init => init
+        upgrade => upgrade
         stake => stake
+        unstake => unstake
         getStakedAddresses => staked_addresses
         getStakingPosition => staking_position
     )

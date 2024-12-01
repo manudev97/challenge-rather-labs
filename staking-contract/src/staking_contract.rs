@@ -19,6 +19,36 @@ pub trait StakingContract {
         self.staked_addresses().insert(caller);
     }
 
+    #[upgrade]
+    fn upgrade(&self) {
+        
+    }
+
+    #[endpoint]
+    fn unstake(&self, opt_unstake_amount: OptionalValue<BigUint>) {
+        let caller = self.blockchain().get_caller();
+        let stake_mapper = self.staking_position(&caller);
+        let unstake_amount = match opt_unstake_amount {
+            OptionalValue::Some(amt) => amt,
+            OptionalValue::None => stake_mapper.get(),
+        };
+
+        let remaining_stake = stake_mapper.update(|staked_amount| {
+            require!(
+                unstake_amount > 0 && unstake_amount <= *staked_amount,
+                "Invalid unstake amount"
+            );
+            *staked_amount -= &unstake_amount;
+
+            staked_amount.clone()
+        });
+        if remaining_stake == 0 {
+            self.staked_addresses().swap_remove(&caller);
+        }
+
+        self.send().direct_egld(&caller, &unstake_amount);
+    }
+
     #[view(getStakedAddresses)]
     #[storage_mapper("stakedAddresses")]
     fn staked_addresses(&self) -> UnorderedSetMapper<ManagedAddress>;
@@ -26,4 +56,5 @@ pub trait StakingContract {
     #[view(getStakingPosition)]
     #[storage_mapper("stakingPosition")]
     fn staking_position(&self, addr: &ManagedAddress) -> SingleValueMapper<BigUint>;
+    
 }

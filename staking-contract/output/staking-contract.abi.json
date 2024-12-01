@@ -21,6 +21,10 @@
         "inputs": [],
         "outputs": []
     },
+    "upgradeConstructor": {
+        "inputs": [],
+        "outputs": []
+    },
     "endpoints": [
         {
             "name": "stake",
@@ -29,6 +33,18 @@
                 "EGLD"
             ],
             "inputs": [],
+            "outputs": []
+        },
+        {
+            "name": "unstake",
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "opt_unstake_amount",
+                    "type": "optional<BigUint>",
+                    "multi_arg": true
+                }
+            ],
             "outputs": []
         },
         {

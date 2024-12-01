@@ -1,9 +1,12 @@
 [
   "bigIntAdd",
+  "bigIntCmp",
   "bigIntFinishUnsigned",
   "bigIntGetCallValue",
+  "bigIntGetUnsignedArgument",
   "bigIntSetInt64",
   "bigIntSign",
+  "bigIntSub",
   "checkNoPayment",
   "getNumArguments",
   "getNumESDTTransfers",
@@ -21,5 +24,6 @@
   "mBufferToBigIntUnsigned",
   "managedCaller",
   "managedSignalError",
+  "managedTransferValueExecute",
   "signalError"
 ]
