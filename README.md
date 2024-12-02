@@ -19,7 +19,7 @@ mxpy --verbose contract call erd1qqqqqqqqqqqqqpgqd6sq3xt8tkxn2kk3s3yuultxeagcwvj
     --proxy=https://devnet-gateway.multiversx.com --chain=D \
     --send --recall-nonce --pem=~/MyTestWallets/TestKey.pem \
     --gas-limit=10000000 \
-    --value=1000000000000000000 \
+    --value=2000000000000000000 \
     --function="stake"
 ```
 
@@ -30,6 +30,10 @@ mxpy --verbose contract query erd1qqqqqqqqqqqqqpgqd6sq3xt8tkxn2kk3s3yuultxeagcwv
     --proxy=https://devnet-gateway.multiversx.com \
     --function="getStakingPosition" \
     --arguments ${USER_ADDRESS}
+
+mxpy --verbose contract query erd1qqqqqqqqqqqqqpgqd6sq3xt8tkxn2kk3s3yuultxeagcwvjwqx2qx4m7u4 \
+    --proxy=https://devnet-gateway.multiversx.com \
+    --function="getStakedAddresses"
 ```
 
 ### Upgrading smart contracts
@@ -53,5 +57,35 @@ mxpy --verbose contract call erd1qqqqqqqqqqqqqpgqd6sq3xt8tkxn2kk3s3yuultxeagcwvj
     --arguments 500000000000000000
 ```
 
+### Update Global Status (Internal to Contract)
+```sh
+mxpy --verbose contract call erd1qqqqqqqqqqqqqpgqd6sq3xt8tkxn2kk3s3yuultxeagcwvjwqx2qx4m7u4 \
+    --proxy=https://devnet-gateway.multiversx.com --chain=D \
+    --send --recall-nonce --pem=~/MyTestWallets/TestKey.pem \
+    --gas-limit=5000000 \
+    --function="update_global_state"
+```
 
+### View Pending Rewards
+```sh
+mxpy --verbose contract query erd1qqqqqqqqqqqqqpgqd6sq3xt8tkxn2kk3s3yuultxeagcwvjwqx2qx4m7u4 \
+    --proxy=https://devnet-gateway.multiversx.com \
+    --function="getPendingRewards" \
+    --arguments ${USER_ADDRESS}
+```
 
+### See Total Participated
+```sh
+mxpy --verbose contract query erd1qqqqqqqqqqqqqpgqd6sq3xt8tkxn2kk3s3yuultxeagcwvjwqx2qx4m7u4 \
+    --proxy=https://devnet-gateway.multiversx.com \
+    --function="getTotalStaked"
+```
+
+### Claim Rewards
+```sh
+mxpy --verbose contract call erd1qqqqqqqqqqqqqpgqd6sq3xt8tkxn2kk3s3yuultxeagcwvjwqx2qx4m7u4 \
+    --proxy=https://devnet-gateway.multiversx.com --chain=D \
+    --send --recall-nonce --pem=~/MyTestWallets/TestKey.pem \
+    --gas-limit=7000000 \
+    --function="claim_rewards"
+```
